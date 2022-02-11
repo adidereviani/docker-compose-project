@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+  app:
+    depends_on:
+      - db
+    build: ./app/
+    restart: always
+    ports: 
+      - "8080:8080"
+    networks: 
+      - stack
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: "app_user"
+      POSTGRES_DB: "app_db"
+      POSTGRES_PASSWORD: "app_password"
+    ports: 
+      - "5432:5432"
+    networks: 
+      - stack
+    volumes:
+      - ./init-db-user.sh:/docker-entrypoint-initdb.d/init-user-db.sh
+      - pg_data_volume:/var/lib/postgresqlß
+
+networks:
+  stack: {}
+
+volumes:
+  pg_data_volume: {}

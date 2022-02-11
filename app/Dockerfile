@@ -1,0 +1,10 @@
+FROM python:3.8
+
+WORKDIR /usr/src/app
+
+ADD requirements.txt /tmp/requirements.txt
+RUN pip install --no-cache-dir -r /tmp/requirements.txt
+
+COPY main.py main.py
+
+CMD [ "python", "./main.py"]
