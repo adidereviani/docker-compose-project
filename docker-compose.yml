@@ -11,6 +11,7 @@ services:
       - stack
   db:
     image: postgres
+    build: ./db/
     restart: always
     environment:
       POSTGRES_USER: "app_user"
@@ -21,8 +22,7 @@ services:
     networks: 
       - stack
     volumes:
-      - ./init-db-user.sh:/docker-entrypoint-initdb.d/init-user-db.sh
-      - pg_data_volume:/var/lib/postgresqlß
+      - pg_data_volume:/var/lib/postgresql
 
 networks:
   stack: {}
